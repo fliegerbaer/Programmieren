@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_HYLBQIblEeaNs-ANq-eosQ" name="RootElement">
+  <packagedElement xmi:type="uml:Activity" xmi:id="_8utSwIblEeaNs-ANq-eosQ" name="neues Spiel erzeugen" node="_7OCC0IboEeaNs-ANq-eosQ _qvtPMIboEeaNs-ANq-eosQ _tIXakIbmEeaNs-ANq-eosQ">
+    <edge xmi:type="uml:ControlFlow" xmi:id="_uOpbQIboEeaNs-ANq-eosQ" target="_qvtPMIboEeaNs-ANq-eosQ" source="_tIXakIbmEeaNs-ANq-eosQ"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_tIXakIbmEeaNs-ANq-eosQ" name="Start" outgoing="_uOpbQIboEeaNs-ANq-eosQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_qvtPMIboEeaNs-ANq-eosQ" name="Spielparameter abfragen" incoming="_uOpbQIboEeaNs-ANq-eosQ">
+      <outputValue xmi:type="uml:OutputPin" xmi:id="_DZav4IbpEeaNs-ANq-eosQ" name="spielparameter">
+        <upperBound xmi:type="uml:LiteralInteger" xmi:id="_DZclEIbpEeaNs-ANq-eosQ" name="Spielparameter" value="1"/>
+      </outputValue>
+    </node>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_7OCC0IboEeaNs-ANq-eosQ" name="zu erratendes Element erzeugen">
+      <inputValue xmi:type="uml:InputPin" xmi:id="_WO1WsIbpEeaNs-ANq-eosQ" name="spielparameter">
+        <upperBound xmi:type="uml:LiteralInteger" xmi:id="_WO19wIbpEeaNs-ANq-eosQ" value="1"/>
+      </inputValue>
+    </node>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_QMp8YIbqEeaNs-ANq-eosQ" name="spielschritt" node="_EW5Z4IbrEeaNs-ANq-eosQ _Od3p4IbrEeaNs-ANq-eosQ _bSUMwIbrEeaNs-ANq-eosQ">
+    <edge xmi:type="uml:ControlFlow" xmi:id="_VMcasIbrEeaNs-ANq-eosQ" target="_Od3p4IbrEeaNs-ANq-eosQ" source="_EW5Z4IbrEeaNs-ANq-eosQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_hqeBoIbrEeaNs-ANq-eosQ" target="_bSUMwIbrEeaNs-ANq-eosQ" source="_Od3p4IbrEeaNs-ANq-eosQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_EW5Z4IbrEeaNs-ANq-eosQ" name="element setzen" outgoing="_VMcasIbrEeaNs-ANq-eosQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_Od3p4IbrEeaNs-ANq-eosQ" name="setzung bestätigen" incoming="_VMcasIbrEeaNs-ANq-eosQ" outgoing="_hqeBoIbrEeaNs-ANq-eosQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_bSUMwIbrEeaNs-ANq-eosQ" name="setzung mit zu erratendem Element vergleichen" incoming="_hqeBoIbrEeaNs-ANq-eosQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_wZIOcIbrEeaNs-ANq-eosQ" name="Class1"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_Kf2qQIbtEeaNs-ANq-eosQ" name="controller">
+    <packagedElement xmi:type="uml:Class" xmi:id="_YAdIgIbtEeaNs-ANq-eosQ" name="MastermindProgramm" visibility="public" isActive="true">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_M0UKwIbuEeaNs-ANq-eosQ" name="main" isStatic="true"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_doSJIIbsEeaNs-ANq-eosQ" name="view">
+    <packagedElement xmi:type="uml:Class" xmi:id="_qXZgEIbsEeaNs-ANq-eosQ" name="KonsolenInOut">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_PObx4IbwEeaNs-ANq-eosQ" name="zeigeStandAufKonsole"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_fLkHgIbxEeaNs-ANq-eosQ" name="gebeNächstenZugEin"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_mv3b4IbwEeaNs-ANq-eosQ" name="Konsolenanzeige" node="_tbu28IbwEeaNs-ANq-eosQ _zRoTUIbwEeaNs-ANq-eosQ">
+      <node xmi:type="uml:OpaqueAction" xmi:id="_tbu28IbwEeaNs-ANq-eosQ" name="bildschirm löschen"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_zRoTUIbwEeaNs-ANq-eosQ" name="ermittle anzahl der züge"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_yemGIIbrEeaNs-ANq-eosQ" name="model">
+    <packagedElement xmi:type="uml:Class" xmi:id="_RynisIbsEeaNs-ANq-eosQ" name="listenfactory"/>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_OZSIAIbvEeaNs-ANq-eosQ" name="Activity1" node="_fAhnEIbvEeaNs-ANq-eosQ">
+      <node xmi:type="uml:CallBehaviorAction" xmi:id="_fAhnEIbvEeaNs-ANq-eosQ" name="CallBehaviorAction1" behavior="_8utSwIblEeaNs-ANq-eosQ"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>

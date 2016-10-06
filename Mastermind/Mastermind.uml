@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_GAhXMIb4EeaNs-ANq-eosQ" name="RootElement">
+  <packagedElement xmi:type="uml:Class" xmi:id="_OZdYEIb4EeaNs-ANq-eosQ" name="KonsolenView"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_QtnzEIb4EeaNs-ANq-eosQ" name="datenhaltung">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_11MioIb4EeaNs-ANq-eosQ" name="erzeugeZufallsliste"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_U1jRwIb4EeaNs-ANq-eosQ" name="Funktionen">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_CClFgIb5EeaNs-ANq-eosQ" name="anzahlRunden"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_zx-tsIb4EeaNs-ANq-eosQ" name="neuesSpiel"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_8SXaYIb4EeaNs-ANq-eosQ" name="spielparameter"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_XUjq0Ib4EeaNs-ANq-eosQ" name="MastermindPRG">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_a1aicIb4EeaNs-ANq-eosQ" name="main" isStatic="true"/>
+  </packagedElement>
+</uml:Model>
