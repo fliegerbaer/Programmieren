@@ -10,6 +10,9 @@ public class SpielController {
 	private Spiel spiel;
 	private View view;
 	
+	
+	
+	
 	//Zahlen vom View anfordern
 	
 	

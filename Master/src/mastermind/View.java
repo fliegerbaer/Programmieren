@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface View {
 
-	List<Integer> zug(int felder);
+	List<Integer> zugManuell(int felder);
 	
 	//hier die View Methoden: neuerTipp(); neuesSpiel(parameter);
 

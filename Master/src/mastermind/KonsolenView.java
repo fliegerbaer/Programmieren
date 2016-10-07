@@ -15,7 +15,7 @@ public class KonsolenView implements View {
 		
 	}
 @Override
-	public List<Integer> zug(int felder){
+	public List<Integer> zugManuell(int felder){
 		List<Integer> liste = new ArrayList<>();
 		Scanner eingabe = new Scanner(System.in);
 		System.out.println("Geben Sie Ihren Zug ein");
@@ -26,7 +26,12 @@ public class KonsolenView implements View {
 		}
 		eingabe.close();
 		return liste;
+	}
+public void allesDarstellen(ArrayList<Integer> spiel){
+	for (int i=0;i < spiel.size();i++){
+		System.out.println(spiel);
 		
 	}
+}
 }
 //unvollständig

@@ -12,7 +12,7 @@ public class Tipp {
 	List<Integer> tipp = new ArrayList<>(); // erzeugen einer Instanz von
 											// Integer mit dem Namen Tipp
 
-	public Tipp(int anzahlFelder, int anzahlFarben) {
+	public Tipp(int anzahlFarben,int anzahlFelder ) {
 
 		this.anzahlFarben = anzahlFarben;
 		this.anzahlFelder = anzahlFelder;
@@ -21,6 +21,8 @@ public class Tipp {
 		for (int i = 0; i < anzahlFelder; i++) {
 			tipp.add(zufall.nextInt(anzahlFarben));
 		}
+		System.out.println("Zufallstipp erzeugt!");
+		System.out.println("Das ist der Tipp: " + tipp);
 	}
 	public void manuellerTipp(List<Integer> tipp) {
 		//Kontrolle auf Konsistenz
