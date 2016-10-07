@@ -29,3 +29,4 @@ public class KonsolenView implements View {
 		
 	}
 }
+//unvollständig
