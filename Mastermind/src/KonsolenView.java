@@ -1,6 +1,9 @@
-import java.util.ArrayList;
+package src;
+
+
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class KonsolenView implements View {
 	
