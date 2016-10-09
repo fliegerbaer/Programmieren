@@ -31,5 +31,8 @@ public class Spiel //Spiel
 		System.out.println("Größe SpielArray: "+spielArray.size());
 		
 	}
+	void neuerZug(){
+		
+	}
 
 }
