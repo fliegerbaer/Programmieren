@@ -14,6 +14,8 @@ public interface View {
 
 	List<Integer> zugManuell(int felder);
 	
+	
+	
 	//hier die View Methoden: neuerTipp(); neuesSpiel(parameter);
 
 }

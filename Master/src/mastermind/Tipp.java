@@ -29,7 +29,13 @@ public class Tipp {
 		if(tipp.size()!=anzahlFelder){
 			throw new RuntimeException("Anzahl der Felder stimmt nicht überein");
 			//keine Prüfung auf Anzahl der Farben!!
+ 
 		}
 		this.tipp = tipp;
+		for (int i = 0; i < anzahlFelder; i++) {
+			tipp.add(zufall.nextInt(anzahlFarben));//hier muss noch ein Integer rein
+		}
+		System.out.println("Zufallstipp erzeugt!");
+		System.out.println("Das ist der Tipp: " + tipp);
 	}
 }

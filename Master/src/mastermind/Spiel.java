@@ -11,10 +11,11 @@ import java.util.Random;
 
 public class Spiel //Spiel 
 {
-	private List<Tipp> tipp = new ArrayList<>();
+	//private List<Tipp> tipp = new ArrayList<>();
 	private int anzahlFelder;
 	private int anzahlFarben;
 	private Tipp rateTipp;
+	private Tipp manuellerTipp;
 	//private int maximaleAnzahlZuege = 99; nicht notwendig, da Array List
 	private int aktuellerZug=1;
 	private ArrayList<Tipp> spielArray;// =new ArrayList<Integer>();
@@ -28,11 +29,14 @@ public class Spiel //Spiel
 		System.out.println("Ratetipp: "+rateTipp.tipp);
 		//Abfrage der Attribute
 		spielArray =new ArrayList<Tipp>();
+		
 		System.out.println("Größe SpielArray: "+spielArray.size());
 		
 	}
 	void neuerZug(){
-		
+		manuellerTipp = new Tipp(anzahlFarben,anzahlFelder);
+		//spielArray.add(manuellerTipp.tipp);
+		aktuellerZug++;
 	}
 
 }
