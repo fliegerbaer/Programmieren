@@ -1,7 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_qLPkEIx2EeaPpKKUvdfGKA" name="RootElement">
-  <packageImport xmi:type="uml:PackageImport" xmi:id="_qOiIoIx2EeaPpKKUvdfGKA">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_bzE2oI4hEeaNAo77krrCTw" name="RootElement">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_b5H0QI4hEeaNAo77krrCTw">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
-  <packagedElement xmi:type="uml:Model" xmi:id="_ttm3kIx2EeaPpKKUvdfGKA" name="generated"/>
+  <packagedElement xmi:type="uml:Model" xmi:id="_emtb4I4hEeaNAo77krrCTw" name="generated">
+    <packagedElement xmi:type="uml:Package" xmi:id="_lBQdcI4hEeaNAo77krrCTw" name="mastermind">
+      <packagedElement xmi:type="uml:Class" xmi:id="_lBSSoI4hEeaNAo77krrCTw" name="MastermindPrg" visibility="public">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_lBVV8o4hEeaNAo77krrCTw" name="maximaleParalleleSpiele" type="_lBVV8Y4hEeaNAo77krrCTw" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_lBWkEI4hEeaNAo77krrCTw" name="alleSpiele" visibility="private" isStatic="true" type="_lBV9AI4hEeaNAo77krrCTw" isUnique="false">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lBXyMI4hEeaNAo77krrCTw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lBYZQI4hEeaNAo77krrCTw" value="*"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_lBZAUI4hEeaNAo77krrCTw" name="k" visibility="private" isUnique="false">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lBZAUY4hEeaNAo77krrCTw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lBZAUo4hEeaNAo77krrCTw" value="*"/>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_lBaOcI4hEeaNAo77krrCTw" name="main" visibility="public" isStatic="true">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_lBaOcY4hEeaNAo77krrCTw" name="args" type="_lBZnY44hEeaNAo77krrCTw">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lBa1gI4hEeaNAo77krrCTw"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lBa1gY4hEeaNAo77krrCTw" value="*"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_lBV9AI4hEeaNAo77krrCTw" name="Spiel" visibility="public">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Y-DU0I4iEeaNAo77krrCTw" name="anzahlFelder" visibility="private" type="_lBVV8Y4hEeaNAo77krrCTw" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Y-D74I4iEeaNAo77krrCTw" name="anzahlFarben" visibility="private" type="_lBVV8Y4hEeaNAo77krrCTw" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Y-D74o4iEeaNAo77krrCTw" name="rateTipp" visibility="private" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Y-Ei8I4iEeaNAo77krrCTw" name="manuellerTipp" visibility="private" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Y-Ei8Y4iEeaNAo77krrCTw" name="aktuellerZug" visibility="private" type="_lBVV8Y4hEeaNAo77krrCTw" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Y-Ei8o4iEeaNAo77krrCTw" name="spielArray" visibility="private" isUnique="false">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y-Ei844iEeaNAo77krrCTw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y-FKAI4iEeaNAo77krrCTw" value="*"/>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_Y-FKAY4iEeaNAo77krrCTw" name="neuerZug"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_nLwwsI4iEeaNAo77krrCTw" name="View" visibility="public">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_nLx-0I4iEeaNAo77krrCTw">
+          <body>
+ * @author frank
+ *
+ </body>
+        </ownedComment>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_nLx-0Y4iEeaNAo77krrCTw" name="zugManuell">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_nLx-0o4iEeaNAo77krrCTw" type="_lBVV8Y4hEeaNAo77krrCTw" direction="return">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nLyl4I4iEeaNAo77krrCTw"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nLyl4Y4iEeaNAo77krrCTw" value="*"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_nLyl4o4iEeaNAo77krrCTw" name="felder" type="_lBVV8Y4hEeaNAo77krrCTw"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_8-0-8I4jEeaNAo77krrCTw" name="SpielController" visibility="public">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_8-2NEI4jEeaNAo77krrCTw" name="spiel" visibility="private" type="_lBV9AI4hEeaNAo77krrCTw" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_8-2NEY4jEeaNAo77krrCTw" name="view" visibility="private" type="_nLwwsI4iEeaNAo77krrCTw" isUnique="false"/>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Model" xmi:id="_lBUu4I4hEeaNAo77krrCTw" name="datatype">
+    <packagedElement xmi:type="uml:Package" xmi:id="_lBVV8I4hEeaNAo77krrCTw" name="datatype">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_lBVV8Y4hEeaNAo77krrCTw" name="Integer"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Model" xmi:id="_lBZnYI4hEeaNAo77krrCTw" name="java">
+    <packagedElement xmi:type="uml:Package" xmi:id="_lBZnYY4hEeaNAo77krrCTw" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_lBZnYo4hEeaNAo77krrCTw" name="lang">
+        <packagedElement xmi:type="uml:Class" xmi:id="_lBZnY44hEeaNAo77krrCTw" name="String"/>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
 </uml:Model>
