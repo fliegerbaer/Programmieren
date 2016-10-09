@@ -8,13 +8,13 @@ public class SpielController {
 	Separierung der Zuständigkeiten.
 	*/
 	private Spiel spiel;
-	private View view;
+	private View view = new KonsolenView();
 	
 	
 	
 	
 	//Zahlen vom View anfordern
-	
+	//ArrayList<Tipp> view();
 	
 	//Zahlen vom View an Spiel übergeben
 	

@@ -19,6 +19,9 @@ public class Spiel //Spiel
 	//private int maximaleAnzahlZuege = 99; nicht notwendig, da Array List
 	private int aktuellerZug=1;
 	private ArrayList<Tipp> spielArray;// =new ArrayList<Integer>();
+	
+	//Konstruktor - erzeugt ein neues Spiel mit dem Initialen Zufallstipp "Ratetipp" und einer leeren ArrayList für den Typ "Tipp"
+	
 	Spiel(int anzahlFarben,int anzahlFelder){
 		//beim Erzeugen der neuen Instanz sollen die Attribute abgefragt werden
 		this.anzahlFarben=anzahlFarben;
@@ -30,11 +33,11 @@ public class Spiel //Spiel
 		//Abfrage der Attribute
 		spielArray =new ArrayList<Tipp>();
 		
-		System.out.println("Größe SpielArray: "+spielArray.size());
+		System.out.println("Größe SpielArray: " + spielArray.size());
 		
 	}
 	void neuerZug(){
-		manuellerTipp = new Tipp(anzahlFarben,anzahlFelder);
+		manuellerTipp = new Tipp(anzahlFarben,anzahlFelder);//hier wird der Neue Tipp erzeugt
 		//spielArray.add(manuellerTipp.tipp);
 		aktuellerZug++;
 	}
