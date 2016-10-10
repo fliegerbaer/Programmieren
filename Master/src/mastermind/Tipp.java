@@ -24,7 +24,7 @@ public class Tipp {
 		System.out.println("Zufallstipp erzeugt!");
 		System.out.println("Das ist der Tipp: " + tippZeile);
 	}
-	public void manuellerTipp(List<Integer> tipp) {
+	public void manuellerTipp(List<Integer> tipp) {//TODO Methode manueller Zug muss noch implementiert werden - wie geht das an den View oder Spielcontroller? 
 		//Kontrolle auf Konsistenz
 		if(tipp.size()!=anzahlFelder){
 			throw new RuntimeException("Anzahl der Felder stimmt nicht überein");
