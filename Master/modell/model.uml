@@ -67,4 +67,10 @@
       </packagedElement>
     </packagedElement>
   </packagedElement>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_WUvdEI7OEea8IJm9y1ojNQ" name="Activity1" node="_i0rIgI7OEea8IJm9y1ojNQ _7Wn0UI7OEea8IJm9y1ojNQ" group="_gEb1gI7OEea8IJm9y1ojNQ _4U_2YI7OEea8IJm9y1ojNQ">
+    <group xmi:type="uml:ActivityPartition" xmi:id="_gEb1gI7OEea8IJm9y1ojNQ" name="MastermindPrg" node="_i0rIgI7OEea8IJm9y1ojNQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_4U_2YI7OEea8IJm9y1ojNQ" name="Spiel" node="_7Wn0UI7OEea8IJm9y1ojNQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_i0rIgI7OEea8IJm9y1ojNQ" name="neuesSpielhinzufügen" inPartition="_gEb1gI7OEea8IJm9y1ojNQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_7Wn0UI7OEea8IJm9y1ojNQ" name="neue Instanz erstellen mit Parameter" inPartition="_4U_2YI7OEea8IJm9y1ojNQ"/>
+  </packagedElement>
 </uml:Model>

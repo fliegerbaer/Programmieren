@@ -13,6 +13,7 @@ import java.util.List;
 public interface View {
 
 	List<Integer> zugManuell(int felder);
+	void allesDarstellen(List<Spiel> s);
 	
 	
 	

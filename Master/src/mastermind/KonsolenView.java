@@ -27,11 +27,14 @@ public class KonsolenView implements View {
 		eingabe.close();
 		return liste;
 	}
-public void allesDarstellen(ArrayList<Integer> spiel){
-	for (int i=0;i < spiel.size();i++){
-		System.out.println(spiel);
-		
+
+@Override
+public void allesDarstellen(List<Spiel> s) {
+	// 
+	for (int i=0;i < s.size();i++){
+		System.out.println(s);
+		}
 	}
-}
+
 }
 //unvollständig
