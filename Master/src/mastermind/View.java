@@ -14,6 +14,9 @@ public interface View {
 
 	List<Integer> zugManuell(int felder);
 	void allesDarstellen(List<Spiel> s);
+	void displayGewonnen();
+	void ergebnisDarstellen(List<Integer> neuerZug, List<Integer> zugManuell);
+	
 	
 	
 	

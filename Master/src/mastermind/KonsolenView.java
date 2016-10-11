@@ -16,6 +16,7 @@ public class KonsolenView implements View {
 	}
 @Override
 	public List<Integer> zugManuell(int felder){
+	System.out.println(felder);
 		List<Integer> liste = new ArrayList<>();
 		Scanner eingabe = new Scanner(System.in);
 		System.out.println("Geben Sie Ihren Zug ein");
@@ -24,7 +25,7 @@ public class KonsolenView implements View {
 			int farbe=eingabe.nextInt();
 			liste.add(farbe);
 		}
-		eingabe.close();
+		//eingabe.close();
 		return liste;
 	}
 
@@ -35,6 +36,22 @@ public void allesDarstellen(List<Spiel> s) {
 		System.out.println(s);
 		}
 	}
+@Override
+public void ergebnisDarstellen(List<Integer> ergebnis,List<Integer> zug) {
+	
+System.out.println(ergebnis +" "+ zug);
+	
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public void displayGewonnen() {
+	
+	System.out.println("Gewonnen!!!");
+	// TODO Auto-generated method stub
+	
+}
+
 
 }
 //unvollständig

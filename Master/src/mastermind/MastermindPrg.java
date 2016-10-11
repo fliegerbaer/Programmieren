@@ -10,20 +10,17 @@ import java.util.List;
 public class MastermindPrg {
 	
 	int maximaleParalleleSpiele=1;
-	private static List<Spiel> alleSpiele=new ArrayList<Spiel>();
+	private static List<SpielController> alleSpiele=new ArrayList<>();
 	
-	
-	
-	private KonsolenView[] k;
 
 	public static void main(String[] args) {
 		//neues Spiel
 		
-		alleSpiele.add(new Spiel(4,4));//wird hier in alle Spiele ein Spiel gekapselt?
+		alleSpiele.add(new SpielController(new Spiel(4,4),new KonsolenView()));//wird hier in alle Spiele ein Spiel gekapselt?
 		System.out.println(alleSpiele.size());
 		System.out.println(alleSpiele.get(0));
-		//System.out.println(alleSpiele.get(0));
-		//System.out.println(alleSpiele.get(0));
-		// TODO Auto-generated method stub
+		
+		while(alleSpiele.get(0).neuerZug());
+		
 	}
 }

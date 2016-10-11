@@ -9,35 +9,113 @@ import java.util.Random;
  * anzahlFarben = anzahl der möglichen Farben
  */
 
-public class Spiel //Spiel 
+public class Spiel // Spiel
 {
-	//private List<Tipp> tipp = new ArrayList<>();
+	// private List<Tipp> tipp = new ArrayList<>();
+	private boolean gewonnen=false;
+
 	private int anzahlFelder;
-	private int anzahlFarben;
-	private Tipp rateTipp;
-	//private Tipp manuellerTipp;
-	//private int maximaleAnzahlZuege = 99; nicht notwendig, da Array List
-	private int aktuellerZug=1;
-	private ArrayList<Tipp> spielzuege;// =new ArrayList<Integer>();
-	//Konstruktor Spiel
-	Spiel(int anzahlFarben,int anzahlFelder){
-		//beim Erzeugen der neuen Instanz sollen die Attribute abgefragt werden
-		this.anzahlFarben=anzahlFarben;
-		this.anzahlFelder=anzahlFelder;
-		System.out.println("Farben:" + anzahlFarben + " Felder:"+anzahlFelder);
-		rateTipp = new Tipp(anzahlFarben,anzahlFelder);
-		rateTipp.zufallTipp();
-		System.out.println("Ratetipp: "+rateTipp.tippZeile);
-		//Abfrage der Attribute
-		spielzuege =new ArrayList<Tipp>();
-		
-		System.out.println("Größe SpielArray: "+spielzuege.size());
-		
+
+	public int getAnzahlFelder() {
+		return anzahlFelder;
 	}
-	void neuerZug(){
-		Tipp manuellerTipp = new Tipp(anzahlFarben,anzahlFelder);
-		spielzuege.add(manuellerTipp);
-		aktuellerZug++;
+
+	private int anzahlFarben;
+	private Zeile rateTipp;
+
+	public Zeile getRateTipp() {
+		return rateTipp;
+	}
+
+	public void setRateTipp(Zeile rateTipp) {
+		this.rateTipp = rateTipp;
+	}
+
+	private ArrayList<Zeile> spielzuege;// =new ArrayList<Integer>();
+
+	public Zeile getSpielzug(int zug) {
+		return spielzuege.get(zug);
+	}
+
+	/*
+	 * // public void setSpielzuege(ArrayList<Zeile> spielzuege) { //
+	 * this.spielzuege = spielzuege; // }
+	 */
+	// Konstruktor Spiel
+	Spiel(int anzahlFarben, int anzahlFelder) {
+		// beim Erzeugen der neuen Instanz sollen die Attribute abgefragt werden
+		this.anzahlFarben = anzahlFarben;
+		this.anzahlFelder = anzahlFelder;
+		System.out.println("Farben:" + anzahlFarben + " Felder:" + anzahlFelder);
+		rateTipp = new Zeile(anzahlFarben, anzahlFelder);
+		rateTipp.zufallTipp();
+		System.out.println("Ratetipp: " + rateTipp.tippZeile);
+		// Abfrage der Attribute
+		spielzuege = new ArrayList<Zeile>();
+
+		System.out.println("Größe neues SpielArray: " + spielzuege.size());
+	}
+
+	/**
+	 * Vergleicht übergibt den Tipp zur Überprüfung an die Methode
+	 * vergleichTipp() und ergänzt die Spielliste um den Tipp
+	 * 
+	 * @param manuellerTipp
+	 * @return
+	 */
+	public List<Integer> neuerZug(List<Integer> manuellerTipp) {
+		List<Integer> vergleichTipp = vergleichTipp(manuellerTipp);
+		spielzuege.add(new Zeile(manuellerTipp)); // fügt den Spielzügen den
+													// neuen Zug an
+		return vergleichTipp;
+	}
+
+	/**
+	 * Vergleicht den Tipp mit dem Ursprungstipp.
+	 * 
+	 * @param manuellerTipp
+	 * @return
+	 */
+	private List<Integer> vergleichTipp(List<Integer> manuellerTipp) {
+
+		Integer volltreffer = 0;
+		Integer farbtreffer = 0;
+		for (int i = 0; i < anzahlFelder; i++) {
+			Integer gegebenerWert = manuellerTipp.get(i);
+			Integer erwartungsWert = rateTipp.getTippZeile().get(i);
+			if (gegebenerWert == erwartungsWert) {
+				volltreffer++;
+			}
+		}
+		for (int i = 0; i < anzahlFelder; i++) {
+			Integer gegebenerWert = manuellerTipp.get(i);
+			for (int j = 0; j < anzahlFelder; j++) {
+				Integer erwartungsWert = rateTipp.getTippZeile().get(j);
+				if (gegebenerWert == erwartungsWert) {
+					farbtreffer++;
+				}
+			}
+		}
+		farbtreffer=farbtreffer-volltreffer;
+		ArrayList<Integer> rueckgabeliste = new ArrayList<>();
+		for (int i = 0;i<volltreffer;i++){
+			rueckgabeliste.add(1);
+		}
+		for (int i = 0;i<farbtreffer;i++){
+			rueckgabeliste.add(2);
+		}
+		for (int i = 0; i < (anzahlFelder-(volltreffer+farbtreffer)); i++) {
+			rueckgabeliste.add(0);
+		}
+		getRateTipp();
+		if (volltreffer==anzahlFelder) {
+			gewonnen=true;
+			}
+		return rueckgabeliste;
+	}
+
+	public boolean hasGewonnen() {
+		return gewonnen;
 	}
 
 }
