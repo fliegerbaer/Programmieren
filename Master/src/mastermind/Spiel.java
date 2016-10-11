@@ -54,32 +54,32 @@ public class Spiel // Spiel
 	/**
 	 * Vergleicht den Tipp mit dem Ursprungstipp. Und prüft auf gewinnen.
 	 * 
-	 * @param manuellerTipp
+	 * @param manuelleTippreihe
 	 * @return
 	 */
-	private List<Integer> vergleichTipp(List<Integer> manuellerTipp) {
+	private List<Integer> vergleichTipp(List<Integer> manuelleTippreihe) {
 
 		Integer volltreffer = 0;
 		Integer farbtreffer = 0;
 		for (int i = 0; i < anzahlFelder; i++) {
-			Integer gegebenerWert = manuellerTipp.get(i);
+			Integer gegebenerWert = manuelleTippreihe.get(i);
 			Integer erwartungsWert = rateTipp.getTippZeile().get(i);
 			if (gegebenerWert == erwartungsWert) {
 				volltreffer++;
 			}
 		}
 		for (int i = 0; i < anzahlFelder; i++) {
-			Integer gegebenerWert = manuellerTipp.get(i);
+			Integer gtippteZahl = manuelleTippreihe.get(i);
 			for (int j = 0; j < anzahlFelder; j++) {
 				Integer erwartungsWert = rateTipp.getTippZeile().get(j);
-				if (gegebenerWert == erwartungsWert) {
+				if (gtippteZahl == erwartungsWert) {
 					farbtreffer++;
 				}
 			}
 		}
 		farbtreffer=farbtreffer-volltreffer;
 		ArrayList<Integer> rueckgabeliste = new ArrayList<>();
-		for (int i = 0;i<volltreffer;i++){
+		for (int i = 0;i<volltreffer;i++){//TODO hier muss noch was gemacht werden volltreffer und farbtreffer werden gedoppelt
 			rueckgabeliste.add(1);
 		}
 		for (int i = 0;i<farbtreffer;i++){
