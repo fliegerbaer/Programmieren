@@ -14,6 +14,10 @@ public class KonsolenView implements View {
 		
 		
 	}
+/* (non-Javadoc)
+ * Umsetzung der Abfrage des manuellen zuges in der Konsole
+ * @see mastermind.View#zugManuell(int)
+ */
 @Override
 	public List<Integer> zugManuell(int felder){
 	System.out.println(felder);
@@ -29,6 +33,9 @@ public class KonsolenView implements View {
 		return liste;
 	}
 
+/* (non-Javadoc)
+ * @see mastermind.View#allesDarstellen(java.util.List)
+ */
 @Override
 public void allesDarstellen(List<Spiel> s) {
 	// 
