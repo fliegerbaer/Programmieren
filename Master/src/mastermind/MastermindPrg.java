@@ -9,9 +9,7 @@ import java.util.List;
  */
 public class MastermindPrg {
 	
-	int maximaleParalleleSpiele=1;
 	private static List<SpielController> alleSpiele=new ArrayList<>();
-	
 
 	public static void main(String[] args) {
 		//neues Spiel
