@@ -51,11 +51,15 @@ System.out.println(ergebnis +" "+ zug);
 	// TODO Auto-generated method stub
 	
 }
+/* (non-Javadoc)
+ * @see mastermind.View#displayGewonnen()
+ */
 @Override
 public void displayGewonnen() {
 	
 	System.out.println("Gewonnen!!!");
 	// TODO Auto-generated method stub
+	
 	
 }
 

@@ -12,35 +12,16 @@ import java.util.Random;
 public class Spiel // Spiel
 {
 	// private List<Tipp> tipp = new ArrayList<>();
+	/**
+	 * wird wahr wenn die Methode hasGewonnen() wahr wird
+	 */
 	private boolean gewonnen=false;
 
 	private int anzahlFelder;
-
-	public int getAnzahlFelder() {
-		return anzahlFelder;
-	}
-
 	private int anzahlFarben;
 	private Zeile rateTipp;
-
-	public Zeile getRateTipp() {
-		return rateTipp;
-	}
-
-	public void setRateTipp(Zeile rateTipp) {
-		this.rateTipp = rateTipp;
-	}
-
 	private ArrayList<Zeile> spielzuege;// =new ArrayList<Integer>();
 
-	public Zeile getSpielzug(int zug) {
-		return spielzuege.get(zug);
-	}
-
-	/*
-	 * // public void setSpielzuege(ArrayList<Zeile> spielzuege) { //
-	 * this.spielzuege = spielzuege; // }
-	 */
 	// Konstruktor Spiel
 	Spiel(int anzahlFarben, int anzahlFelder) {
 		// beim Erzeugen der neuen Instanz sollen die Attribute abgefragt werden
@@ -71,7 +52,7 @@ public class Spiel // Spiel
 	}
 
 	/**
-	 * Vergleicht den Tipp mit dem Ursprungstipp.
+	 * Vergleicht den Tipp mit dem Ursprungstipp. Und prüft auf gewinnen.
 	 * 
 	 * @param manuellerTipp
 	 * @return
@@ -107,7 +88,7 @@ public class Spiel // Spiel
 		for (int i = 0; i < (anzahlFelder-(volltreffer+farbtreffer)); i++) {
 			rueckgabeliste.add(0);
 		}
-		getRateTipp();
+		//getRateTipp(); wird nicht benötigt?
 		if (volltreffer==anzahlFelder) {
 			gewonnen=true;
 			}
@@ -116,6 +97,18 @@ public class Spiel // Spiel
 
 	public boolean hasGewonnen() {
 		return gewonnen;
+	}
+	public int getAnzahlFelder() {
+		return anzahlFelder;
+	}
+	public Zeile getRateTipp() {
+		return rateTipp;
+	}
+	public void setRateTipp(Zeile rateTipp) {
+		this.rateTipp = rateTipp;
+	}
+	public Zeile getSpielzug(int zug) {
+		return spielzuege.get(zug);
 	}
 
 }

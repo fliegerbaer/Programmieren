@@ -17,16 +17,14 @@ public class SpielController {
 	private Spiel spiel;
 	private View view;
 	
-	
-	
-	
-	//Zahlen voview.;
-	
 	//Zahlen vom View an Spiel übergeben
-	
 	
 	//Ergebnis wieder an View übergeben
 	
+	/**
+	 * hier wird dem view mitgeteilt, ein neuen Zug auszuführen
+	 * @return
+	 */
 	public boolean neuerZug() {
 		// TODO Auto-generated method stub
 List<Integer> zugManuell = view.zugManuell(spiel.getAnzahlFelder());
