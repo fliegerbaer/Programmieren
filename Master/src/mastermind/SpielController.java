@@ -9,7 +9,7 @@ public class SpielController {
 	* Spiel (Modell) wird vom View getrennt!! 
 	* Separierung der Zuständigkeiten.
 	*/
-	public SpielController(Spiel spiel, KonsolenView konsolenView) {
+	public SpielController(Spiel spiel, View konsolenView) {
 		this.spiel=spiel;
 		view=konsolenView;
 		// TODO Auto-generated constructor stub
