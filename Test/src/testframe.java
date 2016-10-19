@@ -3,6 +3,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 public class testframe extends JFrame {
@@ -13,6 +16,14 @@ public class testframe extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.Winowslookandfeel");
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -35,6 +46,14 @@ public class testframe extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
 	}
+	/*
+	private void look(testframe frame) {
+		UIManager.setLookAndFeel("Motif");
+		SwingUtilities.updateComponentTreeUI(frame);
+		frame.pack();
+		
+	}*/
 
 }
