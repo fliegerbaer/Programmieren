@@ -18,7 +18,7 @@ public class testframe extends JFrame {
 	public static void main(String[] args) {
 		//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.Winowslookandfeel");
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());//holt sich die standard look and feel
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
