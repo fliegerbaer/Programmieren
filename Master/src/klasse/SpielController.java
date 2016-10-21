@@ -1,6 +1,8 @@
-package mastermind;
+package klasse;
 
 import java.util.List;
+
+import inter.View;
 
 public class SpielController {
 	

@@ -1,4 +1,4 @@
-package mastermind;
+package klasse;
 
 import java.util.ArrayList;
 import java.util.List;

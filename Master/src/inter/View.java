@@ -1,6 +1,8 @@
-package mastermind;
+package inter;
 
 import java.util.List;
+
+import klasse.Spiel;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package mastermind;
+package klasse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Spiel // Spiel
 	private ArrayList<Zeile> spielzuege;// =new ArrayList<Integer>();
 
 	// Konstruktor Spiel
-	Spiel(int anzahlFarben, int anzahlFelder) {
+	public Spiel(int anzahlFarben, int anzahlFelder) {
 		// beim Erzeugen der neuen Instanz sollen die Attribute abgefragt werden
 		this.anzahlFarben = anzahlFarben;
 		this.anzahlFelder = anzahlFelder;

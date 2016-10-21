@@ -1,15 +1,19 @@
-package mastermind;
+package view;
 
 
 import java.util.List;
 import java.util.Scanner;
+
+import inter.View;
+import klasse.Spiel;
+
 import java.util.ArrayList;
 
 public class KonsolenView implements View {
 	
 	//implement View
 	
-	KonsolenView(){
+	public KonsolenView(){
 		//Initialisierung der Klasse
 		
 		
