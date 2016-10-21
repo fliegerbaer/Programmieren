@@ -16,6 +16,9 @@ public class Programm {
 		}
 		
 		FMFrame frame = new FMFrame();
+		frame.setTitle("Fenstertitel");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		//yxfb
 	}
 
