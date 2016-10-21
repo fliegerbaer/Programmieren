@@ -2,6 +2,7 @@ package fenster;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -9,7 +10,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class frame {
+public class FMFrame extends JFrame {
 	
 	private JLabel lblHeader;
 	private JTable table;
@@ -23,7 +24,7 @@ public class frame {
 	private JComboBox boxTyp;
 	
 	
-	frame(){
+	public FMFrame(){
 		
 	}
 	
