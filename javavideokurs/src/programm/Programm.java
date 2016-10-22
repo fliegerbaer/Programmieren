@@ -15,10 +15,10 @@ public class Programm {
 			e.printStackTrace();
 		}
 		
-		FMFrame frame = new FMFrame();
-		frame.setTitle("Fenstertitel");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		FMFrame frame = new FMFrame("Fenstertitel");
+		//frame.setTitle("Fenstertitel");
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 		//yxfb
 	}
 
