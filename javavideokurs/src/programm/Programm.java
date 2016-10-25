@@ -16,10 +16,13 @@ public class Programm {
 		}
 		
 		FMFrame frame = new FMFrame("Fenstertitel");
+		
+		//frame.setResizable(false);//fenster lässt sich in der Größe nicht ändern
 		//frame.setTitle("Fenstertitel");
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frame.setVisible(true);
-		//yxfb
+		//
 	}
 
 }
