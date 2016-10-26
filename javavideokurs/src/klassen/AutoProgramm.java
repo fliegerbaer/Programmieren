@@ -15,7 +15,11 @@ public class AutoProgramm {
 		
 		//Punktnotation
 		bmw.tunen(25);
-		System.out.println(bmw.getLeistung());
+
+		Auto.printInfos(audi);
+		
+		Auto.printInfos(bmw);
+		
 		
 	}
 

@@ -53,4 +53,8 @@ public class Auto {
 		hersteller=derHersteller;
 	}
 	
+	public static void printInfos(Auto auto){ //keine Informationen über ein Objekt vorhanden
+		System.out.println("Der Hersteller ist: " + auto.hersteller +" Die Leistung ist: ");
+	}
+	
 }
