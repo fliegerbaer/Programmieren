@@ -1,6 +1,5 @@
 package programm;
 
-import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import fenster.FMFrame;

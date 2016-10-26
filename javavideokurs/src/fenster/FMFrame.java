@@ -19,7 +19,11 @@ import java.awt.BorderLayout;
  * 
  */
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -48,26 +52,23 @@ public class FMFrame extends JFrame {
 	private int fensterbreite,fensterhoehe;
 	private JPanel pnlAdd;
 	
-	
-	public FMFrame(String fenstertitel){
-		setTitle(fenstertitel);
+	public FMFrame(String fenstertitelKonstruktor){
+		setTitle(fenstertitelKonstruktor);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setSize(600, 600); gibt fixe Größe Vor
-		pack();//bei Laoutmanager ist besser die funktion pack()
 		dimensionen();
-		//setLocation(null); Das geht hier nicht!! (2 Monitorbetrieb??)
-		createWidgets();
+		//setLocation(null); Das geht hier nicht!! (wegen 2 Monitorbetrieb??)
+		createWidgets(fenstertitelKonstruktor);
 		addWidgets();
+		pack();//bei Laoutmanager ist besser die funktion pack()
 		setVisible(true);
 	}
-	
 	private void dimensionen() {//Fensterdimensionen abfragen
 		fensterhoehe=getHeight();
 		fensterbreite=getWidth();
 	}
-
-	private void createWidgets() {
-		lblHeader = new JLabel("Mastermind");
+	private void createWidgets(String fenstertitelCreateWidget) {
+		lblHeader = new JLabel(fenstertitelCreateWidget);
 		lblHeader.setFont(lblHeader.getFont().deriveFont(Font.BOLD + Font.ITALIC,30));
 		//lblHeader.setBounds(0, 0, fensterbreite, 30);
 		
@@ -95,7 +96,7 @@ public class FMFrame extends JFrame {
 		btnInfo.setBounds(10, 150, 120,90 );
 		//Gruppenpanel erzeugen
 		pnlAdd = new JPanel();
-		pnlAdd.setLayout(null); //Layout erzeugen
+		pnlAdd.setLayout(new BoxLayout(pnlAdd, javax.swing.BoxLayout.Y_AXIS)); //Layout erzeugen
 		pnlAdd.setBackground(Color.CYAN); //ändert den Hintergrundfarbton, kein set opaque
 		pnlAdd.setBounds(0, 50, 200, 300);
 		//Komponenten des Gruppenpanels erzeugen 1.: Beschriftungen
@@ -115,10 +116,10 @@ public class FMFrame extends JFrame {
 		spinPreis = new JSpinner(new SpinnerNumberModel(5000, 500, 10000, 100));
 		boxTyp = new JComboBox<>(new Object[] {"PKW","LKW","Motorrad"});
 		//Position der Datenfelder in dem Panel festlegen
-		fldHersteller.setBounds(70, 0, 90, 25);
-		spinLeistung.setBounds(70, 30, 90, 25);
-		spinPreis.setBounds(70, 60, 90, 25);
-		boxTyp.setBounds(70, 90, 90, 25);
+		fldHersteller.setBounds(110, 0, 90, 25);
+		spinLeistung.setBounds(110, 30, 90, 25);
+		spinPreis.setBounds(110, 60, 90, 25);
+		boxTyp.setBounds(110, 90, 90, 25);
 		
 		btnAdd = new JButton("Hinzufügen...");
 		btnAdd.setBackground(Color.BLACK);
@@ -133,32 +134,27 @@ public class FMFrame extends JFrame {
 		//System.out.println(getContentPane().getLayout());
 		//getContentPane().setLayout(null); //null= das Standardlayout nicht verwenden
 		
-		getContentPane().setLayout(new BorderLayout(5, 5));
+		getContentPane().setLayout(new BorderLayout(5, 5));//Border Layout verwenden
+		
 		//System.out.println(getContentPane().getLayout());
-		getContentPane().add(  BorderLayout.NORTH, lblHeader);
+		getContentPane().add(BorderLayout.NORTH, lblHeader);
 		//getContentPane().add(lblHeader);
 		getContentPane().add(BorderLayout.SOUTH,progBar);
 		//getContentPane().add(table); ist in scrolltable enthalten
 		getContentPane().add(BorderLayout.EAST,scrollTable);
 		//getContentPane().add(BorderLayout.WEST,btnInfo);
 		//in das Gruppenpanel JPanel pnlAdd die Komponenten hinzufügen
-		pnlAdd.add(lblHersteller);
-		pnlAdd.add(lblLeistung);
-		pnlAdd.add(lblPreis);
-		pnlAdd.add(lblTyp); 
-		pnlAdd.add(fldHersteller);
-		pnlAdd.add(spinLeistung);
-		pnlAdd.add(spinPreis);
-		pnlAdd.add(boxTyp);
 		
+		pnlAdd.add(lblHersteller);pnlAdd.add(fldHersteller);
+		pnlAdd.add(lblLeistung);pnlAdd.add(spinLeistung);
+		pnlAdd.add(lblPreis);pnlAdd.add(spinPreis);
+		pnlAdd.add(lblTyp); pnlAdd.add(boxTyp);
 		pnlAdd.add(btnAdd);
-		
 		pnlAdd.add(btnInfo);
 		
-		
-		
-		
-		getContentPane().add(pnlAdd);
+		//das Gruppenpanel ausrichten
+		getContentPane().add(BorderLayout.WEST,pnlAdd);
+		getContentPane().validate();
 		// TODO Auto-generated method stub
 	}
 
