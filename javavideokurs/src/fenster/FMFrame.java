@@ -45,6 +45,7 @@ public class FMFrame extends JFrame {
 	private JProgressBar progBar;
 	private JButton btnInfo;
 	private JButton btnAdd;
+	private JButton btnTst;
 	private JLabel lblHersteller, lblLeistung, lblTyp, lblPreis;
 	private JTextField fldHersteller;
 	private JSpinner spinLeistung, spinPreis;
@@ -126,6 +127,12 @@ public class FMFrame extends JFrame {
 		btnAdd.setFont(getFont());
 		btnAdd.setBounds(10, 120, 130,25 );
 		
+		btnTst = new JButton("Klicktest");
+		btnTst.setBackground(Color.BLACK);
+		btnTst.setFont(getFont());
+		btnTst.setBounds(10, 120, 130,25 );
+		//btnTst.
+		
 		
 		
 		
@@ -151,6 +158,7 @@ public class FMFrame extends JFrame {
 		pnlAdd.add(lblTyp); pnlAdd.add(boxTyp);
 		pnlAdd.add(btnAdd);
 		pnlAdd.add(btnInfo);
+		pnlAdd.add(btnTst);
 		
 		//das Gruppenpanel ausrichten
 		getContentPane().add(BorderLayout.WEST,pnlAdd);
