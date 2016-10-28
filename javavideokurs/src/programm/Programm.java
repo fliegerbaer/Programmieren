@@ -1,7 +1,6 @@
 package programm;
 
 import javax.swing.UIManager;
-
 import fenster.FMFrame;
 
 public class Programm {
