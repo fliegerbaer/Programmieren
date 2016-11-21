@@ -140,7 +140,7 @@ public class FMFrame extends JFrame {
 	private void addWidgets() {
 		//System.out.println(getContentPane().getLayout());
 		//getContentPane().setLayout(null); //null= das Standardlayout nicht verwenden
-		
+		 
 		getContentPane().setLayout(new BorderLayout(5, 5));//Border Layout verwenden
 		
 		//System.out.println(getContentPane().getLayout());
