@@ -1,9 +1,15 @@
 package data;
 
-import javax.swing.*; 
-import javax.swing.table.*; 
-import java.sql.*; 
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
+import java.util.ArrayList;
+
+import javax.swing.table.AbstractTableModel;
+
 
 /** an immutable table model built from getting 
 	metadata about a table in a jdbc database 
@@ -35,8 +41,7 @@ public class JDBCTableModel extends AbstractTableModel {
 	ArrayList colClassesList = new ArrayList();
 	while (results.next()) {
 		colNamesList.add (results.getString ("COLUMN_NAME")); 
-		System.out.println ("name: " + 
-			results.getString ("COLUMN_NAME"));
+		System.out.println ("name: " + results.getString ("COLUMN_NAME"));
 		int dbType = results.getInt ("DATA_TYPE");
 		switch (dbType) {
 		case Types.INTEGER:

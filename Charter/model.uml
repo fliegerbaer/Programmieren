@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_R6MbcLMMEeaNNIrfC5T_tQ" name="RootElement">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_SCRZYLMMEeaNNIrfC5T_tQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_ga1aYLMMEeaNNIrfC5T_tQ" name="data">
+    <packagedElement xmi:type="uml:Class" xmi:id="_W5Y5ULMMEeaNNIrfC5T_tQ" name="MySQLConnectionToern"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_TexzoLMMEeaNNIrfC5T_tQ" name="JDBCTableModel"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_RVXaoLMNEeaNNIrfC5T_tQ" name="verbindung" client="_TexzoLMMEeaNNIrfC5T_tQ" supplier="_W5Y5ULMMEeaNNIrfC5T_tQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_iT-tULMMEeaNNIrfC5T_tQ" name="gui">
+    <packagedElement xmi:type="uml:Class" xmi:id="_b6UckLMMEeaNNIrfC5T_tQ" name="Hauptfenster">
+      <elementImport xmi:type="uml:ElementImport" xmi:id="_e9rqcLMNEeaNNIrfC5T_tQ" alias="Tabellen werden als Instanz verwendet" importedElement="_TexzoLMMEeaNNIrfC5T_tQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_bCbyULMMEeaNNIrfC5T_tQ" name="Aktionen"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_zDUUMLPXEeawV-5JkNyCkA" client="_b6UckLMMEeaNNIrfC5T_tQ" supplier="_bCbyULMMEeaNNIrfC5T_tQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_vSIl0LMMEeaNNIrfC5T_tQ" name="charterprogramm">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_5V8NELMMEeaNNIrfC5T_tQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Usage" xmi:id="__pw3ULPXEeawV-5JkNyCkA" name="Instanz erzeugt" client="_vSIl0LMMEeaNNIrfC5T_tQ" supplier="_b6UckLMMEeaNNIrfC5T_tQ"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_LcuIALPYEeawV-5JkNyCkA" name="wird Instanziiert" client="_vSIl0LMMEeaNNIrfC5T_tQ" supplier="_TexzoLMMEeaNNIrfC5T_tQ"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_UIu14LPYEeawV-5JkNyCkA" name="Datenverbindung wird Instanziiert" client="_vSIl0LMMEeaNNIrfC5T_tQ" supplier="_W5Y5ULMMEeaNNIrfC5T_tQ"/>
+</uml:Model>
