@@ -2,9 +2,12 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -18,83 +21,118 @@ import data.JDBCTableModel;
 
 import java.awt.Button;
 import java.awt.List;
+import java.awt.Dimension;
 
 public class Hauptfenster {
 
 	public JFrame frame;
-	
 	private String fenstertitel;
 	private JTable table;
 	private JTable tblPerson;
-
+	private Object[] jPanels;
+	private JScrollPane[] jScrollPanes;
+	private Object[] jTables;
+	private LayoutManager borderLayout22 = new BorderLayout(2, 2);// 
+	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 	private JButton btnNeueBuchung;
-	
-
-
-	public static void main(String[] args) {
-
-	}
-
-	
-	public Hauptfenster(String fenstertitel) {
-		
-	}
-
+/*
+ * Ablauf Hauptfenster: Übernahme der Tabellen aus dem Konstruktor
+ * Aufbau der Tabs:
+ * pro Tabelle ein Tab
+ * Tab enthält Panel
+ * Panel enthält Tabelle
+ * 
+ * 
+*/
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public Hauptfenster(Object object, JDBCTableModel toern, JDBCTableModel person) {
-		// TODO Auto-generated constructor stub
-		initialize(fenstertitel, toern, person);
+	public Hauptfenster(String fenstertitel, JDBCTableModel[] dbTabellenModelle) {
+		initialize(fenstertitel, dbTabellenModelle);
 		this.frame.pack();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(String fenstertitel, JDBCTableModel toern,JDBCTableModel person) {
+	//.........................Initiierung
+	private void initialize(String fenstertitel, JDBCTableModel[] dbTabellenModelle) {
 		frame = new JFrame();
-		//dimensionen();
-		//frame.setBounds(100, 100, 450, 300);
+		frame.getContentPane().setPreferredSize(new Dimension(800, 600));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle(fenstertitel);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.getContentPane().setLayout(borderLayout22);
+		//Initiieren der Arrays
+		jPanels=new JPanel[dbTabellenModelle.length];
+		for (int i=0;i<dbTabellenModelle.length;i++){
+
+		System.out.println("Panel erzeugt ");
+		}
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
+		createObjects(dbTabellenModelle);
+		placeObjects(dbTabellenModelle);
+		
+	
+		
+	}//Ende Konstruktor
+	
+	//---------------------Erzeugen der Objekte---------------------------
+	private void createObjects(JDBCTableModel[] dbTabellenModelle){
+		//tabbed pane erzeugen
 		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		frame.getContentPane().add(tabbedPane);
-		
-		JPanel pnlPerson = new JPanel();
-		tabbedPane.addTab("Person", null, pnlPerson, null);
-		pnlPerson.setLayout(new BorderLayout(0, 0));
+		//Panels erzeugen
+		System.out.println("Hauptfenster: createObjects dbtabellenObjekte.length: "+dbTabellenModelle.length);
+		//leere Panels erzeugt
+		for (int i=0;i<dbTabellenModelle.length;i++){
+			System.out.println("Panel nummer "+i+" erzeugt");
+			//jPanels[i].setLayout(borderLayout22);
+			System.out.println("Layout gesetzt");
+			
+		}
+	}
+	
+	//---------------------Objekte ineinander verschachteln---------------
+private void placeObjects(JDBCTableModel[] dbTabellenModelle){
+	frame.getContentPane().add(tabbedPane);
+	for (int i=0;i<dbTabellenModelle.length;i++){
+		//tabbedPane.addTab(dbTabellenModelle[i].getMeinTabellenName(), null, jPanels[i],null);
+		//Tabellen in das Pane hinzufügen
+		//Muster: JPanel jPanels[nummer]=new JPanel();
+	}
+	
+}
+
+/*
+		JPanel pnlPerson = new JPanel();//PersonenPanel erzeugen - erledigt
+		tabbedPane.addTab("Person", null, pnlPerson, null);//erledigt
+		pnlPerson.setLayout(new BorderLayout(0, 0));//erledigt
 		
 		JPanel pnlPersonSteuerung = new JPanel();
 		pnlPerson.add(pnlPersonSteuerung, BorderLayout.SOUTH);
 		
 		Button btnNeuePerson = new Button("Neu");
 		btnNeuePerson.setActionCommand("new");
-		btnNeuePerson.addActionListener(new Aktionen(btnNeuePerson.getName()));
+		btnNeuePerson.addActionListener(new AktionenListener(btnNeuePerson.getName()));
 		pnlPersonSteuerung.add(btnNeuePerson);
 		
 		Button btnLoeschen = new Button("löschen");
 		btnLoeschen.setActionCommand("delete");
-		btnLoeschen.addActionListener(new Aktionen(btnLoeschen.getName()));
+		btnLoeschen.addActionListener(new AktionenListener(btnLoeschen.getName()));
 		pnlPersonSteuerung.add(btnLoeschen);
 		
 		Button btnAendern = new Button("ändern");
 		btnAendern.setActionCommand("alterTable");//hier kann der sql Befehl eingetragen werden oder aus einer sql Liste geholt werden!!
-		btnAendern.addActionListener(new Aktionen(btnAendern.getName()));
+		btnAendern.addActionListener(new AktionenListener(btnAendern.getName()));
 		pnlPersonSteuerung.add(btnAendern);
 		
 		Button btnPersonNeuLaden = new Button("Neu Laden");
 		btnPersonNeuLaden.setActionCommand("select");
 		//btnPersonNeuLaden.getLabel()
-		btnPersonNeuLaden.addActionListener(new Aktionen(btnPersonNeuLaden.getLabel()));
+		btnPersonNeuLaden.addActionListener(new AktionenListener(btnPersonNeuLaden.getLabel()));
 		pnlPersonSteuerung.add(btnPersonNeuLaden);
 		
 		JScrollPane personScrollPane = new JScrollPane();  //Container für Personentabelle
 		pnlPerson.add(personScrollPane, BorderLayout.CENTER); //Container für Person in pnl Person hinzu
-		//tblPerson.
+		
 		tblPerson = new JTable(); //neue Tabelle Person erstellen
 		tblPerson.setRowSelectionAllowed(true);//Zeilenauswahl aktivieren
 		tblPerson.setColumnSelectionAllowed(false);//Spaltenauswahl aktivieren 
@@ -102,21 +140,17 @@ public class Hauptfenster {
 		tblPerson.setShowGrid(true);
 		Color gridcolor = new Color(0,0,0);
 		tblPerson.setGridColor(gridcolor);
-
+		//tblPerson.
 		personScrollPane.setViewportView(tblPerson);
-		
-		
 		tblPerson.setModel(person);
-		
-		//Liste erstellen und oben hinzufügen
 		List list = new List();
 	
 		pnlPerson.add(list, BorderLayout.NORTH);
 		
 		
-		JPanel pnlBuchung = new JPanel(new BorderLayout(0, 0));//Panel Buchung erstellen mit BorderLayout
+		JPanel pnlBuchung = new JPanel();
 		tabbedPane.addTab("Buchung", null, pnlBuchung, null);
-		//pnlBuchung.setLayout(new BorderLayout(0, 0));
+		pnlBuchung.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pnlBuchungSteuerung = new JPanel();
 		pnlBuchung.add(pnlBuchungSteuerung, BorderLayout.SOUTH);
@@ -159,9 +193,7 @@ public class Hauptfenster {
 		
 		JButton btnRundmailliste = new JButton("Rundmailliste");
 		pnlListen.add(btnRundmailliste);
-	}
-	
-
+*/
 	
 	// ---------------------getter und setter-----------------------------
 	public String getFenstertitel() {
@@ -172,3 +204,4 @@ public class Hauptfenster {
 		this.fenstertitel = fenstertitel;
 	}
 }
+
