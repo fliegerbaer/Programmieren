@@ -21,11 +21,14 @@ public class JDBCTableModel extends AbstractTableModel {
 	String[]tables;
 	private String meinTabellenName;
 	public JDBCTableModel (Connection conn,
-			   String tableName){
-		setMeinTabellenName(tableName);
-		System.out.println("JDBCTableModel für Tabelle " + tableName + " wurde instanziiert");
+			   String tableName)
+		throws SQLException {
+			super();
+			getTableContents (conn, tableName);
+			setMeinTabellenName(tableName);
+			System.out.println("JDBCTableModel für Tabelle " + tableName + " wurde instanziiert");
 		
-		/*
+	/*	
 	for(String tableName:tables){
 		throws SQLException {
 		super();
@@ -33,10 +36,9 @@ public class JDBCTableModel extends AbstractTableModel {
 		return JDBCTableModel getTableContents (conn, tableName);
 		}
 		//hier kann man das Array befüllen
+	}
+	*/
 
-
-	}*/
-	
 }
 
 	

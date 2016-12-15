@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -14,7 +15,7 @@ public class ToernConnection {
 	
 
 
-	public static JDBCTableModel[] JDBCtabellenModelleArray;
+	public static JDBCTableModel[] jdbcTabellenModellArray;
 	public Connection conn = null;
 	public static DatabaseMetaData meta;
 	private static String datenverbindung = "jdbc:mysql://localhost:3306/toerndb?useSSL=false";
@@ -44,15 +45,20 @@ public class ToernConnection {
 			e.printStackTrace();
 		}
 
-		JDBCtabellenModelleArray = new JDBCTableModel[tabellenStringArray.length];
+		jdbcTabellenModellArray = new JDBCTableModel[tabellenStringArray.length];
 		for (int i = 0; i < tabellenStringArray.length; i++) {
-			JDBCtabellenModelleArray[i] = new JDBCTableModel(conn, tabellenStringArray[i]);
-			System.out.println("ToernConnection: Tabelle "+i+" mit Namen "+tabellenStringArray[i]+" wurde erzeugt");
+			try {
+				jdbcTabellenModellArray[i] = new JDBCTableModel(conn, tabellenStringArray[i]);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("ToernConnection: Tabelle "+i+" mit Namen "+jdbcTabellenModellArray[i].getMeinTabellenName()+" wurde erzeugt");
 		}
 		System.out.println("Toern Connection: KONSTRUKTOR ENDE");
 	}
 
-	public Connection toernConnector() {// String datenverbindung,String user,
+	private Connection toernConnector() {// String datenverbindung,String user,
 										// String password
 		System.out.println("toernConnector START");
 		try {
@@ -118,11 +124,11 @@ public class ToernConnection {
 	}
 
 	public static JDBCTableModel[] getTabellen() {
-		return JDBCtabellenModelleArray;
+		return jdbcTabellenModellArray;
 	}
 
 	public void setTabellen(JDBCTableModel[] tabellen) {
-		this.JDBCtabellenModelleArray = tabellen;
+		this.jdbcTabellenModellArray = tabellen;
 	}
 
 	public String[] getTablesNamesAsStringArray() {
