@@ -12,7 +12,7 @@ import data.JDBCTableModel;
 import data.MysqlConnectionToern;
 import gui.Hauptfenster;
 
-public class charterprogramm {
+public class Charterprogramm {
 	public static Connection conroot = null;
 	static MysqlConnectionToern mycon=null;
 	
@@ -23,13 +23,14 @@ public class charterprogramm {
 	public static JDBCTableModel person;
 	public static JDBCTableModel schiff;
 	public static JDBCTableModel ort;
-	public static JDBCTableModel[] tabellen; 
+	// public static JDBCTableModel[] tabellen; //Array mit Tabellen größe=? Kommt aus toernconnection?
 	
 	
 	public static void main(String[] args) {
 		mycon = new MysqlConnectionToern();
 		
-		conroot = MysqlConnectionToern.toernConnector("root","123");
+		conroot = MysqlConnectionToern.toernConnector("root","123");//toernconnection conroot erstellt
+		
 		
 		try {
 			toern = new JDBCTableModel(conroot, "toern");

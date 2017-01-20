@@ -17,13 +17,9 @@ public class Hauptfenster2 {
 	
 	
 	public Hauptfenster2(String fenstertitel){//Konstruktor
-		setFenstertitel(fenstertitel);
-		hauptfenster();
+		setFenstertitel(fenstertitel);//der übergebene Fenstertitel wird in die Variable geschrieben
+		hauptfenster();//erzeugen des Fensters mit der Funktion Hauptfenster
 		person();
-		
-		
-		
-		
 		
 	}
 	
@@ -72,7 +68,6 @@ public class Hauptfenster2 {
 		fenster.setVisible(true);
 		
 	}
-
 
 	public String getFenstertitel() {
 		return fenstertitel;

@@ -1,6 +1,6 @@
 package programm;
 
-
+//TODO datenbankdaten parametrisieren
 
 import java.awt.EventQueue;
 import java.sql.Connection;
@@ -14,58 +14,31 @@ import gui.Hauptfenster2;
 
 public class Charterprogramm {
 	static String fenstertitel = "Stuis Toernplanung";
+	//String user="";
+	private static String datenverbindung = "jdbc:mysql://localhost:3306/toerndb?useSSL=false";
+	private static String user = "root";
+	private static String password = "123";
 	public static ToernConnection conroot  = null;
 	public static String[] tables;
 	
 	public static void main(String[] args) {//Main Methode
-
-		    try {
-		            // Set cross-platform Java L&F (also called "Metal")
-		        //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		        UIManager.setLookAndFeel(UIManger.getSystemLookAndFe);
-		    } 
-		    catch (UnsupportedLookAndFeelException e) {
-		       // handle exception
-		    	System.out.println("unsupported look and feel nicht umgestellt");
-		    }
-		    catch (ClassNotFoundException e) {
-		       // handle exception
-		    	System.out.println("handle look and feel nicht umgestellt");
-		    }
-		    catch (InstantiationException e) {
-		       // handle exception
-		    	System.out.println("instantiation look and feel nicht umgestellt");
-		    }
-		    catch (IllegalAccessException e) {
-		       // handle exception
-		    	System.out.println("illegal look and feel nicht umgestellt");
-		    }
 		/*
 		 * Ablauf: 
 		 * Verbindung aufbauen durch Toern Connection
 		 * tabellen holen nach Toern Connection
-		 * charteprogramm ruft hauptfenster auf mit Übergabe der Tabellen und Fenstertitel
+		 * charteprogramm ruft hauptfenster auf mit Übergabe der toern connection
 		 * Dann übernimmt das Hauptfenster...
 		 * 
 		 */
-		
-		conroot = new ToernConnection();//datenverbindung,user,password
-		
+		conroot = new ToernConnection(datenverbindung,user,password);//datenverbindung,user,password
+		fenstertitel="Datenbank: "+conroot.getDatenverbindung()+" User: "+conroot.getUser();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				/*
+				
 				try {
-					Hauptfenster window = new Hauptfenster(null,ToernConnection.getTabellen());
-					window.setFenstertitel("Hauptfenster User: " + ToernConnection.getUser());
-					window.frame.setVisible(true);
-				} catch (Exception e) {e.printStackTrace();}
-				*/
-				try {
-					Hauptfenster2 window2 = new Hauptfenster2(fenstertitel);
-
-					//window2.setFenstertitel("Hauptfenster2 User: " + ToernConnection.getUser());
-					//window2.frame.setVisible(true);
+					Hauptfenster window = new Hauptfenster(conroot);
+					window.setVisible(true);
 				} catch (Exception e) {e.printStackTrace();}
 			}
 		});

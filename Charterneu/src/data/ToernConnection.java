@@ -10,34 +10,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class ToernConnection {
-	
-
 
 	public static JDBCTableModel[] jdbcTabellenModellArray;
+	public static DefaultTableModel standardTabellenModellArray[];
 	public Connection conn = null;
 	public static DatabaseMetaData meta;
-	private static String datenverbindung = "jdbc:mysql://localhost:3306/toerndb?useSSL=false";
-	private static String user = "root";
-	private static String password = "123";
+	public String datenverbindung,user;
 	private int anzahlTabellenInDatenbank = 0;// Anfangswert auf 0
 	private String[] tabellenStringArray;
 /**
  * The Constructor creates/holds the connection conn and produces an StringArray of tables from the connected database. 
  * And also an Array of JDBCTableModels of the Tables.
  */
-	public ToernConnection() {// String datenverbindung,String user, String
+	//Konstruktor Start
+	public ToernConnection(String datenverbindung,String user, String password) {// String datenverbindung,String user, String 
 								// password
 		System.out.println("KONSTRUKTOR ToernConnection START");
+		this.datenverbindung = datenverbindung;
+		this.user = user;
 		// TODO Auto-generated constructor stub
-		conn = toernConnector();// datenverbindung,user, password (reseviert für
+		conn = toernConnector(datenverbindung,user,password);// datenverbindung,user, password (reseviert für
 								// Übergabe von Verbindungsdaten
 		try {
-			tabellenStringArray = getTables(conn);
-			System.out.println("ToernConnection: erzeugte Tabellen" + tabellenStringArray.length);
+			tabellenStringArray = getTables(conn);//tabellen werden in dem Array gespeichert
+			System.out.println("ToernConnection: erzeugte Tabellen: " + tabellenStringArray.length);
 			for (int i = 0; i < tabellenStringArray.length; i++) {
-				System.out.println("i: "+i);
 				System.out.println("Tabelle " + i + " im Connector: " + tabellenStringArray[i].toString());
 			}
 		} catch (Exception e) {
@@ -46,6 +47,9 @@ public class ToernConnection {
 		}
 
 		jdbcTabellenModellArray = new JDBCTableModel[tabellenStringArray.length];
+		standardTabellenModellArray = new DefaultTableModel[tabellenStringArray.length];
+		
+		//standardTabellenModellArray = new DefaultTableModel(tabellenStringArray, anzahlTabellenInDatenbank);
 		for (int i = 0; i < tabellenStringArray.length; i++) {
 			try {
 				jdbcTabellenModellArray[i] = new JDBCTableModel(conn, tabellenStringArray[i]);
@@ -55,10 +59,14 @@ public class ToernConnection {
 			}
 			System.out.println("ToernConnection: Tabelle "+i+" mit Namen "+jdbcTabellenModellArray[i].getMeinTabellenName()+" wurde erzeugt");
 		}
+		for (int i = 0; i < tabellenStringArray.length; i++) {
+			standardTabellenModellArray[i] = new DefaultTableModel();
+			System.out.println("standardToernConnection: Tabelle "+i+" mit Namen "+standardTabellenModellArray[i].toString()+" wurde erzeugt");
+		}
 		System.out.println("Toern Connection: KONSTRUKTOR ENDE");
 	}
 
-	private Connection toernConnector() {// String datenverbindung,String user,
+	private Connection toernConnector(String datenverbindung,String user, String password) {// String datenverbindung,String user,
 										// String password
 		System.out.println("toernConnector START");
 		try {
@@ -115,13 +123,21 @@ public class ToernConnection {
 		// -------------------------GETTER UND
 		// SETTER--------------------------------------
 
-	public static String getUser() {
+	public String getUser() {
 		return user;
 	}
 
-	public static void setUser(String user) {
+	/*public static void setUser(String user) {
 		ToernConnection.user = user;
+	}*/
+
+	public String getDatenverbindung() {
+		return datenverbindung;
 	}
+
+	/*public void setDatenverbindung(String datenverbindung) {
+		ToernConnection.datenverbindung = datenverbindung;
+	}*/
 
 	public static JDBCTableModel[] getTabellen() {
 		return jdbcTabellenModellArray;
@@ -137,6 +153,14 @@ public class ToernConnection {
 
 	public int getAnzahlTabellenInDatenbank() {
 		return anzahlTabellenInDatenbank;
+	}
+
+	public static DefaultTableModel[] getStandardTabellenModellArray() {
+		return standardTabellenModellArray;
+	}
+
+	public static void setStandardTabellenModellArray(DefaultTableModel[] standardTabellenModellArray) {
+		ToernConnection.standardTabellenModellArray = standardTabellenModellArray;
 	}
 
 }

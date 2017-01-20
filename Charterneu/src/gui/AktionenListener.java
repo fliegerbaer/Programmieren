@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import data.ToernConnection;
 
 public class AktionenListener implements ActionListener{
 	

@@ -1,105 +1,103 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
+import java.awt.EventQueue;
+import java.util.EventObject;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
 
 import data.JDBCTableModel;
+import data.ToernConnection;
 
-import java.awt.Button;
-import java.awt.List;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableModel;
+
+import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.ListSelectionModel;
 import java.awt.Dimension;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
-public class Hauptfenster {
+public class Hauptfenster extends JFrame {
 
-	public JFrame frame;
-	private String fenstertitel;
-	private JTable tblSchiff;
-	private JTable tblPerson;
-	private JPanel[] jPanels;
-	private JScrollPane[] jScrollPanes;
-	private JTable[] jTables;
-	private LayoutManager borderLayout22 = new BorderLayout(2, 2);// 
-	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
-	private JButton btnNeueBuchung;
-/*
- * Ablauf Hauptfenster: Übernahme der Tabellen aus dem Konstruktor
- * Aufbau der Tabs:
- * pro Tabelle ein Tab
- * Tab enthält Panel
- * Panel enthält Tabelle
- * 
- * 
-*/
+	private JPanel contentPane;
+	private JTable table;
+	private JScrollPane scrollPane;
+	private JDBCTableModel personen;
 	/**
-	 * @wbp.parser.entryPoint
+	 * Create the frame.
 	 */
-	public Hauptfenster(String fenstertitel, JDBCTableModel[] dbTabellenModelle) {
-		initialize(fenstertitel, dbTabellenModelle);
-		this.frame.pack();
-	}
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	//.........................Initiierung
-	private void initialize(String fenstertitel, JDBCTableModel[] dbTabellenModelle) {
-		frame = new JFrame();
-		frame.getContentPane().setPreferredSize(new Dimension(800, 600));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle(fenstertitel);
-		frame.getContentPane().setLayout(borderLayout22);
+	public Hauptfenster(ToernConnection connection) {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		//Initiieren der Arrays
-		jPanels=new JPanel[dbTabellenModelle.length];//für jede Tabelle(i) ein Pane erzeugt
-		System.out.println(jPanels.length+" Panels erzeugt");
-		jScrollPanes=new JScrollPane[dbTabellenModelle.length];//für jede Tabelle(i)ein ScrollPane erzeugen
-		System.out.println(jScrollPanes.length+" JScrollpanes erzeugt");
-		jTables=new JTable[dbTabellenModelle.length];//
-		System.out.println(jTables.length+" JTables erzeugt");
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
+		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+		contentPane.add(tabbedPane);
 		
-		//tabbed pane erzeugen
-		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		
-		for (int i=0;i<dbTabellenModelle.length;i++){
-			jTables[i]=new JTable();jScrollPanes[i]=new JScrollPane();jPanels[i]=new JPanel();
+		JButton btnSpeichern = new JButton("Speichern");
+		btnSpeichern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedTab = tabbedPane.getSelectedIndex();
+				try {
+					connection.getTabellen()[selectedTab].updateTableContents();
+				} catch (SQLException e1) {
+					// TODO Fehler behandeln
+					e1.printStackTrace();
+				}
+			}
+		});
+		contentPane.add(btnSpeichern, BorderLayout.SOUTH);
+		for (int i = 0; i < connection.getTabellen().length; i++) {
+			JDBCTableModel tm = connection.getTabellen()[i];
 			
-System.out.println("Tabelle Nummer: "+i+" heißt "+dbTabellenModelle[i].getMeinTabellenName());
-
-jTables[i].setShowGrid(true);
-jTables[i].setGridColor(new Color(0,0,0));
-jScrollPanes[i].setViewportView(jTables[i]);
-jTables[i].setModel(dbTabellenModelle[i]);
-jScrollPanes[i].add(jTables[i]);
-jPanels[i].setLayout(borderLayout22);
-jPanels[i].add(jScrollPanes[i], BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tabbedPane.addTab(tm.getMeinTabellenName(), null, panel, null);
+		tabbedPane.setEnabledAt(0, true);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+		
+		table = new JTable();
+		table.setGridColor(Color.BLACK);
+		table.setBackground(Color.LIGHT_GRAY);
+		table.setMinimumSize(new Dimension(1, 1));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setBorder(new LineBorder(new Color(255,255,255)));
+		table.setColumnSelectionAllowed(true);
+		table.setCellSelectionEnabled(true);
+		table.setFillsViewportHeight(true);
+		table.setModel(tm);
+		scrollPane.setViewportView(table);
+		System.out.println("tabelle gemalt");
+		for (int j = 0; j < tm.getColumnCount(); j++) {
+			Class columnClass = tm.getColumnClass(j);
+			if (columnClass==String.class)
+				table.getColumnModel().getColumn(j).setCellEditor(new DefaultCellEditor(new JTextField()));
+			
+			
 		}
-		frame.getContentPane().add(tabbedPane);
-		for (int i=0;i<dbTabellenModelle.length;i++){
-			tabbedPane.addTab(dbTabellenModelle[i].getMeinTabellenName(), null, jPanels[i],null);
-			//Tabellen in das Pane hinzufügen
-			//Muster: JPanel jPanels[nummer]=new JPanel();
-		}
-	}//Ende Konstruktor
-	//in Pane JScrollpane hinzu dann JTable in Jscrollpane
-	// ---------------------getter und setter-----------------------------
-	public String getFenstertitel() {
-		return fenstertitel;
 	}
-
-	public void setFenstertitel(String fenstertitel) {
-		this.fenstertitel = fenstertitel;
 	}
 }

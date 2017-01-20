@@ -20,20 +20,15 @@ import java.awt.Button;
 import java.awt.List;
 
 public class Hauptfenster {
-
 	public JFrame frame;
-	
 	private String fenstertitel;
 	private JTable table;
 	private JTable tblPerson;
-
 	private JButton btnNeueBuchung;
-	
 
+	/*public static void main(String[] args) {
 
-	public static void main(String[] args) {
-
-	}
+	}*/
 
 	
 	public Hauptfenster(String fenstertitel) {
@@ -102,17 +97,12 @@ public class Hauptfenster {
 		tblPerson.setShowGrid(true);
 		Color gridcolor = new Color(0,0,0);
 		tblPerson.setGridColor(gridcolor);
-
-		personScrollPane.setViewportView(tblPerson);
+		personScrollPane.setViewportView(tblPerson);//scrollbar dem view zuordnen
 		
+		tblPerson.setModel(person);//übergabe des TableModels an Tabelle
 		
-		tblPerson.setModel(person);
-		
-		//Liste erstellen und oben hinzufügen
-		List list = new List();
-	
+		List list = new List();//Liste erstellen und oben hinzufügen
 		pnlPerson.add(list, BorderLayout.NORTH);
-		
 		
 		JPanel pnlBuchung = new JPanel(new BorderLayout(0, 0));//Panel Buchung erstellen mit BorderLayout
 		tabbedPane.addTab("Buchung", null, pnlBuchung, null);

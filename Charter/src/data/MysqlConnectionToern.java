@@ -28,12 +28,14 @@ public class MysqlConnectionToern {
 			//Connection conn=DriverManager.getConnection(url)
 			JOptionPane.showMessageDialog(null, "Datenverbindung mit User " + user + " wurde hergestellt");
 			meta = (DatabaseMetaData) conn.getMetaData();
+			System.out.println("**toernConnector konstruktor start");
 			System.out.println(meta);
 			System.out.println(meta.getSQLKeywords());
 			System.out.println("Schemas in DML: " + meta.supportsSchemasInDataManipulation());
 			System.out.println("Nur Lesen: " + meta.isReadOnly());
 			//System.out.println("Schemas in DML: " + meta.getTables(arg0, arg1, arg2, arg3));
 			System.out.println("Table Types: " + meta.getTableTypes());
+			System.out.println("**toernConnector konstruktor ende");
 			
 			return conn;
 			

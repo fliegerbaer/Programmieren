@@ -7,19 +7,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 
 /** an immutable table model built from getting 
 	metadata about a table in a jdbc database 
 	*/
 public class JDBCTableModel extends AbstractTableModel {
+
+
 	Object[][] data;
 	String[] columnNames;
 	Class[] columnClasses;
 	String[]tables;
+	private Connection conn;
 	private String meinTabellenName;
+	private Set<Integer> datachanges=new HashSet<>();//hier werden die veränderten Zeilen gespeichert
 	public JDBCTableModel (Connection conn,
 			   String tableName)
 		throws SQLException {
@@ -27,21 +34,28 @@ public class JDBCTableModel extends AbstractTableModel {
 			getTableContents (conn, tableName);
 			setMeinTabellenName(tableName);
 			System.out.println("JDBCTableModel für Tabelle " + tableName + " wurde instanziiert");
-		
-	/*	
-	for(String tableName:tables){
-		throws SQLException {
-		super();
-		
-		return JDBCTableModel getTableContents (conn, tableName);
-		}
-		//hier kann man das Array befüllen
-	}
-	*/
-
+			this.conn=conn;
 }
-
-	
+	public void updateTableContents() throws SQLException {
+		for (Integer row : datachanges) {
+			Statement updateStatement = conn.createStatement();
+			String updateSQL= "UPDATE "+getMeinTabellenName()+" SET ";
+			for (int i = 1; i < columnNames.length; i++) {
+				String col = columnNames[i];
+				if(columnClasses[i]==String.class){
+				updateSQL = updateSQL + col + "="+"´" +data[row][i]+"´"+" ";
+				}
+				else
+				{
+				updateSQL = updateSQL + col + "="+ data[row][i]+" ";
+				}
+			}
+			updateSQL=updateSQL+"where "+columnNames[0]+"="+data[row][0]+";";
+			System.out.println(updateSQL);
+			updateStatement.execute(updateSQL);
+			
+		}
+	}
 	protected void getTableContents (Connection conn,
 				 String tableName)
 		throws SQLException {
@@ -89,13 +103,12 @@ public class JDBCTableModel extends AbstractTableModel {
 	conn.createStatement ();
 		results = statement.executeQuery ("SELECT * FROM " +
 					  tableName);
+		
 		ArrayList rowList = new ArrayList();
 		while (results.next()) {
 	ArrayList cellList = new ArrayList(); 
 	for (int i = 0; i<columnClasses.length; i++) { 
 		Object cellValue = null;
-
-
 		if (columnClasses[i] == String.class) 
 	cellValue = results.getString (columnNames[i]); 
 		else if (columnClasses[i] == Integer.class) 
@@ -103,7 +116,7 @@ public class JDBCTableModel extends AbstractTableModel {
 			results.getInt (columnNames[i])); 
 		else if (columnClasses[i] == Float.class) 
 	cellValue = new Float ( 
-			results.getInt (columnNames[i])); 
+			results.getInt (columnNames[i])); //TODO Prüfen ob Fehler getInt getFloat?
 		else if (columnClasses[i] == Double.class) 
 	cellValue = new Double ( 
 			results.getDouble (columnNames[i]));
@@ -115,7 +128,7 @@ public class JDBCTableModel extends AbstractTableModel {
 		cellList.add (cellValue);
 	}// for
 	Object[] cells = cellList.toArray();
-	rowList.add (cells);
+	rowList.add (cells);//Zellen werden in die Zeile gefügt
 	
 } // while
 // finally create contents two-dim array
@@ -125,18 +138,16 @@ for (int i=0; i<data.length; i++)
 	data[i] = (Object []) rowList.get (i);
 System.out.println ("Created model with " +
 		   data.length + " rows");
-
 // close stuff
 results.close();
 statement.close();
-
-}
+}//Data Array befüllt
 // AbstractTableModel methods
 public int getRowCount() {
-	return data.length;
+	return data.length; //Zeilenzahl für Abstract Table Model
 }
 
-public int getColumnCount() {
+public int getColumnCount() {//Spaltenzahl für Abstract Table Model
 	if (data.length == 0)
 		return 0;
 	else
@@ -144,9 +155,19 @@ public int getColumnCount() {
 	}
 
 	public Object getValueAt (int row, int column) {
-		return data [row][column];
+		return data [row][column];//holt Wert aus Datenarray für Tabellen Modell für JTable
 	}
-
+@Override
+public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+	// TODO Auto-generated method stub
+	data[rowIndex][columnIndex]=aValue;//TODO hier Werte prüfen!
+	datachanges.add(rowIndex);		
+}
+@Override
+public boolean isCellEditable(int rowIndex, int columnIndex) {
+	// TODO Auto-generated method stub
+	return true;
+}
 	// overrides methods for which AbstractTableModel
 	// has trivial implementations
 
