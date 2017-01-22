@@ -54,7 +54,26 @@ public class Hauptfenster extends JFrame {
 		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		contentPane.add(tabbedPane);
 		
+		JPanel pnlBedien = new JPanel();
+		contentPane.add(pnlBedien, BorderLayout.SOUTH);
+		
 		JButton btnSpeichern = new JButton("Speichern");
+		pnlBedien.add(btnSpeichern);
+		
+		JButton btnNeuerDatensatz = new JButton("neuer Datensatz");
+		btnNeuerDatensatz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedTab = tabbedPane.getSelectedIndex();
+				try {
+					connection.getTabellen()[selectedTab].updateTableContents();
+				} catch (SQLException e1) {
+					// TODO Fehler behandeln
+					e1.printStackTrace();
+				}
+			}
+		});
+		pnlBedien.add(btnNeuerDatensatz);
+		
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedTab = tabbedPane.getSelectedIndex();
@@ -66,7 +85,6 @@ public class Hauptfenster extends JFrame {
 				}
 			}
 		});
-		contentPane.add(btnSpeichern, BorderLayout.SOUTH);
 		for (int i = 0; i < connection.getTabellen().length; i++) {
 			JDBCTableModel tm = connection.getTabellen()[i];
 			

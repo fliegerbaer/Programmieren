@@ -11,22 +11,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 
 /** an immutable table model built from getting 
 	metadata about a table in a jdbc database 
 	*/
 public class JDBCTableModel extends AbstractTableModel {
-
-
 	Object[][] data;
 	String[] columnNames;
 	Class[] columnClasses;
 	String[]tables;
 	private Connection conn;
 	private String meinTabellenName;
-	private Set<Integer> datachanges=new HashSet<>();//hier werden die veränderten Zeilen gespeichert
+	private Set<Integer> datachanges=new HashSet<>();//TODO hier werden die veränderten Zeilen gespeichert
 	public JDBCTableModel (Connection conn,
 			   String tableName)
 		throws SQLException {
@@ -36,26 +33,55 @@ public class JDBCTableModel extends AbstractTableModel {
 			System.out.println("JDBCTableModel für Tabelle " + tableName + " wurde instanziiert");
 			this.conn=conn;
 }
+	//Hier beginnt die Update Funktion
 	public void updateTableContents() throws SQLException {
 		for (Integer row : datachanges) {
 			Statement updateStatement = conn.createStatement();
 			String updateSQL= "UPDATE "+getMeinTabellenName()+" SET ";
 			for (int i = 1; i < columnNames.length; i++) {
 				String col = columnNames[i];
-				if(columnClasses[i]==String.class){
-				updateSQL = updateSQL + col + "="+"´" +data[row][i]+"´"+" ";
+				updateSQL = updateSQL + col + "="+"'" +data[row][i]+"'"+" ";
+				if((columnNames.length-i)>=2){//damit nur bis zur vorletzten spalte ein komma gesetzt wird
+					updateSQL=updateSQL+",";
+				System.out.println("Komma hinzugefügt");
 				}
-				else
-				{
-				updateSQL = updateSQL + col + "="+ data[row][i]+" ";
+			}
+			updateSQL=updateSQL+"where "+columnNames[0]+"="+data[row][0]+";";
+			System.out.println(updateSQL);//TODO VERÄNDERTE DATEN SPEICHERN
+			try {
+				updateStatement.execute(updateSQL);
+			} catch (SQLException e) {
+				// TODO könnte in ein logfile geschrieben werden
+				e.printStackTrace();
+			}
+			
+		}
+	}//hier endet die update Funktion
+	//hier beginnt die add Funktion
+	public void addTableContents() throws SQLException {
+		for (Integer row : datachanges) {
+			Statement updateStatement = conn.createStatement();
+			String updateSQL= "INSERT INTO "+getMeinTabellenName()+" SET ";
+			for (int i = 1; i < columnNames.length; i++) {
+				String col = columnNames[i];
+				updateSQL = updateSQL + col + "="+"'" +data[row][i]+"'"+" ";
+				if((columnNames.length-i)>=2){//damit nur bis zur vorletzten spalte ein komma gesetzt wird
+					updateSQL=updateSQL+",";
+				System.out.println("Komma hinzugefügt");
 				}
 			}
 			updateSQL=updateSQL+"where "+columnNames[0]+"="+data[row][0]+";";
 			System.out.println(updateSQL);
-			updateStatement.execute(updateSQL);
+			try {
+				updateStatement.execute(updateSQL);
+			} catch (SQLException e) {
+				// TODO könnte in ein logfile geschrieben werden
+				e.printStackTrace();
+			}
 			
 		}
-	}
+	}//hier endet die add funktion
+	
 	protected void getTableContents (Connection conn,
 				 String tableName)
 		throws SQLException {
@@ -160,7 +186,7 @@ public int getColumnCount() {//Spaltenzahl für Abstract Table Model
 @Override
 public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 	// TODO Auto-generated method stub
-	data[rowIndex][columnIndex]=aValue;//TODO hier Werte prüfen!
+	data[rowIndex][columnIndex]=aValue;//TODO hier Werte auf plausibilität prüfen!
 	datachanges.add(rowIndex);		
 }
 @Override
