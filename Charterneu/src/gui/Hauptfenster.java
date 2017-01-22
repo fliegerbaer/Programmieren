@@ -39,6 +39,7 @@ public class Hauptfenster extends JFrame {
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JDBCTableModel personen;
+
 	/**
 	 * Create the frame.
 	 */
@@ -49,17 +50,17 @@ public class Hauptfenster extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		contentPane.add(tabbedPane);
-		
+
 		JPanel pnlBedien = new JPanel();
 		contentPane.add(pnlBedien, BorderLayout.SOUTH);
-		
+
 		JButton btnSpeichern = new JButton("Speichern");
 		pnlBedien.add(btnSpeichern);
-		
+
 		JButton btnNeuerDatensatz = new JButton("neuer Datensatz");
 		btnNeuerDatensatz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -73,7 +74,15 @@ public class Hauptfenster extends JFrame {
 			}
 		});
 		pnlBedien.add(btnNeuerDatensatz);
-		
+
+		JButton btnDatensatzLoeschen = new JButton("Datensatz löschen");
+		btnDatensatzLoeschen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Datensatz löschen");
+			}
+		});
+		pnlBedien.add(btnDatensatzLoeschen);
+
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedTab = tabbedPane.getSelectedIndex();
@@ -87,35 +96,34 @@ public class Hauptfenster extends JFrame {
 		});
 		for (int i = 0; i < connection.getTabellen().length; i++) {
 			JDBCTableModel tm = connection.getTabellen()[i];
-			
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tabbedPane.addTab(tm.getMeinTabellenName(), null, panel, null);
-		tabbedPane.setEnabledAt(0, true);
-		panel.setLayout(new BorderLayout(0, 0));
-		
-		scrollPane = new JScrollPane();
-		panel.add(scrollPane);
-		
-		table = new JTable();
-		table.setGridColor(Color.BLACK);
-		table.setBackground(Color.LIGHT_GRAY);
-		table.setMinimumSize(new Dimension(1, 1));
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBorder(new LineBorder(new Color(255,255,255)));
-		table.setColumnSelectionAllowed(true);
-		table.setCellSelectionEnabled(true);
-		table.setFillsViewportHeight(true);
-		table.setModel(tm);
-		scrollPane.setViewportView(table);
-		System.out.println("tabelle gemalt");
-		for (int j = 0; j < tm.getColumnCount(); j++) {
-			Class columnClass = tm.getColumnClass(j);
-			if (columnClass==String.class)
-				table.getColumnModel().getColumn(j).setCellEditor(new DefaultCellEditor(new JTextField()));
-			
-			
+
+			JPanel panel = new JPanel();
+			panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tabbedPane.addTab(tm.getMeinTabellenName(), null, panel, null);
+			tabbedPane.setEnabledAt(0, true);
+			panel.setLayout(new BorderLayout(0, 0));
+
+			scrollPane = new JScrollPane();
+			panel.add(scrollPane);
+
+			table = new JTable();
+			table.setGridColor(Color.BLACK);
+			table.setBackground(Color.LIGHT_GRAY);
+			table.setMinimumSize(new Dimension(1, 1));
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			table.setBorder(new LineBorder(new Color(255, 255, 255)));
+			table.setColumnSelectionAllowed(true);
+			table.setCellSelectionEnabled(true);
+			table.setFillsViewportHeight(true);
+			table.setModel(tm);
+			scrollPane.setViewportView(table);
+			System.out.println("tabelle gemalt");
+			for (int j = 0; j < tm.getColumnCount(); j++) {
+				Class columnClass = tm.getColumnClass(j);
+				if (columnClass == String.class)
+					table.getColumnModel().getColumn(j).setCellEditor(new DefaultCellEditor(new JTextField()));
+
+			}
 		}
-	}
 	}
 }
