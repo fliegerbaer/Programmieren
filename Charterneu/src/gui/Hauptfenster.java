@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 
+import org.jdesktop.swingx.table.DatePickerCellEditor;
+
 import java.awt.Color;
 import java.awt.Component;
 
@@ -61,16 +63,12 @@ public class Hauptfenster extends JFrame {
 		JButton btnSpeichern = new JButton("Speichern");
 		pnlBedien.add(btnSpeichern);
 
-		JButton btnNeuerDatensatz = new JButton("neuer Datensatz");
+		JButton btnNeuerDatensatz = new JButton("neue Zeile");
 		btnNeuerDatensatz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedTab = tabbedPane.getSelectedIndex();
-				try {
-					connection.getTabellen()[selectedTab].updateTableContents();
-				} catch (SQLException e1) {
-					// TODO Fehler behandeln
-					e1.printStackTrace();
-				}
+				connection.getTabellen()[selectedTab].addNewRow();
+
 			}
 		});
 		pnlBedien.add(btnNeuerDatensatz);
@@ -88,6 +86,7 @@ public class Hauptfenster extends JFrame {
 				int selectedTab = tabbedPane.getSelectedIndex();
 				try {
 					connection.getTabellen()[selectedTab].updateTableContents();
+					connection.getTabellen()[selectedTab].addTableContents();
 				} catch (SQLException e1) {
 					// TODO Fehler behandeln
 					e1.printStackTrace();
@@ -122,6 +121,8 @@ public class Hauptfenster extends JFrame {
 				Class columnClass = tm.getColumnClass(j);
 				if (columnClass == String.class)
 					table.getColumnModel().getColumn(j).setCellEditor(new DefaultCellEditor(new JTextField()));
+				else
+					table.getColumnModel().getColumn(j).setCellEditor(new DatePickerCellEditor());
 
 			}
 		}

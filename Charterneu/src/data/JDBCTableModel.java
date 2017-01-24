@@ -2,6 +2,7 @@ package data;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,16 +18,25 @@ import javax.swing.table.AbstractTableModel;
  * database
  */
 public class JDBCTableModel extends AbstractTableModel {
-	Object[][] data;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3603297543925469776L;
+	public Object[][] data;
 	String[] columnNames;
 	@SuppressWarnings("rawtypes")
 	Class[] columnClasses;
 	String[] tables;
+	java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private Connection conn;
 	private String meinTabellenName;
 	private Set<Integer> datachanges = new HashSet<>();// TODO hier werden die
 														// veränderten Zeilen
 														// gespeichert
+	private Set<Integer> neueZeilen = new HashSet<>();// TODO hier werden die
+	// neuen Zeilen
+	// gespeichert
+	private ArrayList rowList;
 
 	public JDBCTableModel(Connection conn, String tableName) throws SQLException {
 		super();
@@ -43,7 +53,13 @@ public class JDBCTableModel extends AbstractTableModel {
 			String updateSQL = "UPDATE " + getMeinTabellenName() + " SET ";
 			for (int i = 1; i < columnNames.length; i++) {
 				String col = columnNames[i];
-				updateSQL = updateSQL + col + "=" + "'" + data[row][i] + "'" + " ";
+				Object zellwert = data[row][i];
+				if (columnClasses[i] == Date.class)
+					zellwert = sdf.format(zellwert);// Datumswert anpassen
+				if (zellwert == null)
+					updateSQL = updateSQL + col + "=" + "" + zellwert + "" + " ";
+				else
+					updateSQL = updateSQL + col + "=" + "'" + zellwert + "'" + " ";
 				if ((columnNames.length - i) >= 2) {// damit nur bis zur
 													// vorletzten spalte ein
 													// komma gesetzt wird
@@ -62,15 +78,27 @@ public class JDBCTableModel extends AbstractTableModel {
 
 		}
 	}// hier endet die update Funktion
-		// hier beginnt die add Funktion
+
+	// hier beginnt die add Funktion
 
 	public void addTableContents() throws SQLException {
-		for (Integer row : datachanges) {
+		for (Integer row : neueZeilen) {
 			Statement updateStatement = conn.createStatement();
-			String updateSQL = "INSERT INTO " + getMeinTabellenName() + " SET ";
+			String updateSQL = "INSERT INTO " + getMeinTabellenName() + " VALUES( ";// korrektur
+																					// INSERT
+																					// INTO
+																					// table_name
+																					// (column1,column2,column3,...)
+			// VALUES (value1,value2,value3,...);
 			for (int i = 1; i < columnNames.length; i++) {
 				String col = columnNames[i];
-				updateSQL = updateSQL + col + "=" + "'" + data[row][i] + "'" + " ";
+				Object zellwert = data[row][i];
+				if (columnClasses[i] == Date.class)
+					zellwert = sdf.format(zellwert);// Datumswert anpassen
+				if (zellwert == null)
+					updateSQL = updateSQL + col + "=" + "" + zellwert + "" + " ";
+				else
+					updateSQL = updateSQL + col + "=" + "'" + zellwert + "'" + " ";
 				if ((columnNames.length - i) >= 2) {// damit nur bis zur
 													// vorletzten spalte ein
 													// komma gesetzt wird
@@ -78,10 +106,15 @@ public class JDBCTableModel extends AbstractTableModel {
 					System.out.println("Komma hinzugefügt");
 				}
 			}
-			updateSQL = updateSQL + "where " + columnNames[0] + "=" + data[row][0] + ";";
-			System.out.println(updateSQL);
+			updateSQL = updateSQL + ")";
+			System.out.println(updateSQL);// TODO VERÄNDERTE DATEN SPEICHERN
 			try {
 				updateStatement.execute(updateSQL);
+				ResultSet resultSet = updateStatement.getResultSet();
+				resultSet.next();
+				int idNeuerDatensatz = resultSet.getInt(0);
+				System.out.println("Neue ID: " + idNeuerDatensatz);
+
 			} catch (SQLException e) {
 				// TODO könnte in ein logfile geschrieben werden
 				e.printStackTrace();
@@ -89,6 +122,14 @@ public class JDBCTableModel extends AbstractTableModel {
 
 		}
 	}// hier endet die add funktion
+
+	public void addNewRow() {// hier wird eine neue Zeile eingefügt in das
+		rowList.add(new Object[getColumnCount()]);
+		data = (Object[][]) rowList.toArray(data);
+		System.out.println("Zeilenzahl: " + rowList.size());
+		neueZeilen.add(rowList.size() - 1);
+		fireTableDataChanged();// fügt neue Zeile in das Array ein
+	}
 
 	protected void getTableContents(Connection conn, String tableName) throws SQLException {
 
@@ -138,7 +179,7 @@ public class JDBCTableModel extends AbstractTableModel {
 		Statement statement = conn.createStatement();
 		results = statement.executeQuery("SELECT * FROM " + tableName);
 
-		ArrayList rowList = new ArrayList();
+		rowList = new ArrayList();
 		while (results.next()) {
 			ArrayList cellList = new ArrayList();
 			for (int i = 0; i < columnClasses.length; i++) {

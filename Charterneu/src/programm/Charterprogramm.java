@@ -10,7 +10,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import data.ToernConnection;
 import gui.Hauptfenster;
-import gui.Hauptfenster2;
 
 public class Charterprogramm {
 	static String fenstertitel = "Stuis Toernplanung";
